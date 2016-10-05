@@ -126,7 +126,7 @@ class Learn extends Component {
     console.log(counter());
     console.log(counter());
 
-    counter2(300);
+    counter2(600);
     console.log(counter2());
     console.log(counter2());
     console.log(counter2());
