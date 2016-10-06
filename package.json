@@ -1,4 +1,6 @@
 {
+  "name": "my-project",
+  "author": "mauphes",
   "private": true,
   "engines": {
     "node": ">=5.0 <7",
