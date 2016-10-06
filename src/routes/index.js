@@ -3,7 +3,7 @@ import App from '../components/App';
 
 // Child routes
 import home from './home';
-//import learn from './learn';
+import learn from './learn';
 import content from './content';
 import error from './error';
 
@@ -14,7 +14,7 @@ export default {
   // keep in mind, routes are evaluated in order
   children: [
     home,
-    //learn,
+    learn,
 
     // place new routes before...
     content,
