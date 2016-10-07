@@ -3,7 +3,7 @@ import Learn from './Learn';
 
 export default {
 
-  path: '/learn',
+  path: '/',
 
   action() {
     var userName = 'Евгений';

@@ -19,72 +19,6 @@ class Learn extends Component {
       var inputValue = this.state.inputValue;
 
 
-    var Person = {
-      constructor: function(name, age, gender){
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        return this;
-      },
-      hello: function(){
-        console.log("Hello, my name is " + this.name + ", I'm " + this.age + " years old");
-      }
-    };
-
-    var personOne = Object.create(Person).constructor("Eugene", 26, "male");
-    var personTwo = Object.create(Person).constructor("Kate", 32, "female");
-
-    personOne.hello();
-    personOne.name = "JAck";
-    personOne.hello();
-    personOne.hello = function(){
-      console.log("Hello");
-    };
-    personOne.hello();
-    console.log(personTwo.gender);
-    personTwo.hello();
-
-    var WebDeveloper = Object.create(Person);
-    WebDeveloper.constructor = function(name, age, gender, skills){
-      Person.constructor.apply(this, arguments);
-      this.skills = skills || [];
-      return this;
-    };
-
-    var developer = Object.create(WebDeveloper).constructor("Eugene", 25, "male", ["html", "css", "js", "php"]);
-    console.log(developer.skills);
-
-    var product = {
-      name: "оливье",
-      price: 550,
-      difficult: 3,
-      product_name: function(){
-        return this.name;
-      },
-      toJSON: function(){
-        return {
-          name: this.name,
-          price: this.price
-        }
-      }
-    };
-
-    Person.work = function(){
-      console.log("Working...");
-    };
-    Person.eat = function(){
-      console.log(this.name + " ест " + product.product_name());
-    };
-
-    developer.hello();
-    developer.work();
-    developer.eat();
-
-    var productJSON = JSON.stringify(product);
-    console.log(productJSON);
-    productJSON = JSON.parse(productJSON);
-    console.log(productJSON);
-
     news = news.filter(function(e){
       return e.text.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1;
     });
@@ -103,36 +37,6 @@ class Learn extends Component {
 
       console.log(filterArr);
     }
-
-
-    var counter = function(num){
-      counter.count = num ? num : counter.count;
-      return counter.count++;
-    };
-
-    var counter2 = (function(){
-      var count = 0;
-      return function(num){
-        count = num ? num : count;
-        return count++;
-      }
-    }());
-
-    counter.count = 0;
-    console.log(counter());
-    console.log(counter());
-    console.log(counter());
-    console.log(counter());
-    console.log(counter());
-    console.log(counter());
-
-    counter2(600);
-    console.log(counter2());
-    console.log(counter2());
-    console.log(counter2());
-    console.log(counter2());
-    console.log(counter2());
-    console.log(counter2());
 
 
       return (
@@ -169,3 +73,103 @@ class Learn extends Component {
 }
 
 export default withStyles(s)(Learn);
+
+
+
+
+var Person = {
+  constructor: function(name, age, gender){
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+    return this;
+  },
+  hello: function(){
+    console.log("Hello, my name is " + this.name + ", I'm " + this.age + " years old");
+  }
+};
+
+var personOne = Object.create(Person).constructor("Eugene", 26, "male");
+var personTwo = Object.create(Person).constructor("Kate", 32, "female");
+
+personOne.hello();
+personOne.name = "JAck";
+personOne.hello();
+personOne.hello = function(){
+  console.log("Hello");
+};
+personOne.hello();
+console.log(personTwo.gender);
+personTwo.hello();
+
+var WebDeveloper = Object.create(Person);
+WebDeveloper.constructor = function(name, age, gender, skills){
+  Person.constructor.apply(this, arguments);
+  this.skills = skills || [];
+  return this;
+};
+
+var developer = Object.create(WebDeveloper).constructor("Eugene", 25, "male", ["html", "css", "js", "php"]);
+console.log(developer.skills);
+
+var product = {
+  name: "оливье",
+  price: 550,
+  difficult: 3,
+  product_name: function(){
+    return this.name;
+  },
+  toJSON: function(){
+    return {
+      name: this.name,
+      price: this.price
+    }
+  }
+};
+
+Person.work = function(){
+  console.log("Working...");
+};
+Person.eat = function(){
+  console.log(this.name + " ест " + product.product_name());
+};
+
+developer.hello();
+developer.work();
+developer.eat();
+
+var productJSON = JSON.stringify(product);
+console.log(productJSON);
+productJSON = JSON.parse(productJSON);
+console.log(productJSON);
+
+
+
+var counter = function(num){
+  counter.count = num ? num : counter.count;
+  return counter.count++;
+};
+
+var counter2 = (function(){
+  var count = 0;
+  return function(num){
+    count = num ? num : count;
+    return count++;
+  }
+}());
+
+counter.count = 0;
+console.log(counter());
+console.log(counter());
+console.log(counter());
+console.log(counter());
+console.log(counter());
+console.log(counter());
+
+counter2(600);
+console.log(counter2());
+console.log(counter2());
+console.log(counter2());
+console.log(counter2());
+console.log(counter2());
+console.log(counter2());
