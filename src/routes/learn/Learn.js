@@ -3,6 +3,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Learn.scss';
 import Article from '../../components/Article';
 import Input from '../../components/Input';
+import Add from '../../components/Add';
 
 class Learn extends Component {
 
@@ -42,7 +43,8 @@ class Learn extends Component {
       return (
           <div className={s.root}>
               <div className={s.container}>
-                  <Input filterFunc={this.filterFunc.bind(this)} />
+                  <Add />
+                  <Input filterFunc={::this.filterFunc} />
                   <div>
                     <div style={{cursor: "pointer"}} onClick={e => {e.preventDefault(); this.setState({sorteredNews : true})}}>{this.state.sorteredNews ? <span>Сортируется по алфавиту</span> : <span>Сортировать по алфавиту</span>}</div>
                     <div style={{cursor: "pointer"}} onClick={e => {e.preventDefault(); this.setState({sorteredNews : false})}}>Не сортировать по алфавиту</div>
