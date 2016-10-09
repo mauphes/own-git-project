@@ -43,6 +43,7 @@ class App extends Component {
   render() {
     return !this.props.error ? (
         <div>
+          <div id="vk_api_transport"></div>
           <Header />
           {this.props.children}
           <Footer />

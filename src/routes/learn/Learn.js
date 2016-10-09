@@ -6,6 +6,7 @@ import Input from '../../components/Input';
 import Add from '../../components/Add';
 import { connect } from 'react-redux';
 import {getPhotos} from '../../actions/PageActions';
+import {handleLogin} from '../../actions/UserActions';
 
 class Learn extends Component {
 
@@ -16,8 +17,9 @@ class Learn extends Component {
 
   render() {
       let {news, year, fetching} = this.props.page;
-      const {userName} = this.props.user;
+      const {userName, name, error} = this.props.user;
       const {getPhotos} = this.props;
+      const {handleLogin} = this.props;
 
       let sorteredNews = this.state.sorteredNews;
       let inputValue = this.state.inputValue;
@@ -58,6 +60,13 @@ class Learn extends Component {
                   ) : <div className={s.nope}>новостей нету</div>}
                   {news.length > 0 ? <div className={s.all_news} onClick={e => {e.preventDefault(); this.setState({counter : ++this.state.counter})}}>Всего новостей: {news.length}</div> : ''}
                   <div>Всего кликов: {this.state.counter}</div>
+
+                  <hr />
+                  {name ?
+                    <h2>Здравствуйте, {name}</h2> :
+                    <button className='btn' onClick={handleLogin}>Войти</button>
+                  }
+
               </div>
           </div>
       );
@@ -79,7 +88,7 @@ function mapStateToProps (state) {
   }
 }
 
-export default withStyles(s)(connect(mapStateToProps, {getPhotos})(Learn));
+export default withStyles(s)(connect(mapStateToProps, {getPhotos, handleLogin})(Learn));
 
 
 

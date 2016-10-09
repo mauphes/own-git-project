@@ -26,6 +26,23 @@ function Html({ title, description, style, script, children }) {
         {analytics.google.trackingId &&
           <script src="https://www.google-analytics.com/analytics.js" async defer />
         }
+        {
+          <script dangerouslySetInnerHTML={{ __html:
+            `window.vkAsyncInit = function() {
+              VK.init({
+                apiId: 5660550
+              });
+            };
+
+            setTimeout(function() {
+              var el = document.createElement("script");
+              el.type = "text/javascript";
+              el.src = "//vk.com/js/api/openapi.js";
+              el.async = true;
+              document.getElementById("vk_api_transport").appendChild(el);
+            }, 0);` }}>
+          </script>
+        }
       </body>
     </html>
   );
