@@ -1,5 +1,10 @@
 import React from 'react';
 import App from '../components/App';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import configureStore from '../store/configureStore';
+
+const store = configureStore();
 
 // Child routes
 import home from './home';
@@ -25,7 +30,9 @@ export default {
     const component = await next();
     if (component === undefined) return component;
     return render(
-      <App context={context}>{component}</App>
+      <Provider store={store}>
+        <App context={context}>{component}</App>
+      </Provider>
     );
   },
 

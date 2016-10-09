@@ -4,6 +4,8 @@ import s from './Learn.scss';
 import Article from '../../components/Article';
 import Input from '../../components/Input';
 import Add from '../../components/Add';
+import { connect } from 'react-redux';
+import {getPhotos} from '../../actions/PageActions';
 
 class Learn extends Component {
 
@@ -13,11 +15,12 @@ class Learn extends Component {
   }
 
   render() {
-      var news = this.props.news;
-      var name = this.props.name;
+      let {news, year, fetching} = this.props.page;
+      const {userName} = this.props.user;
+      const {getPhotos} = this.props;
 
-      var sorteredNews = this.state.sorteredNews;
-      var inputValue = this.state.inputValue;
+      let sorteredNews = this.state.sorteredNews;
+      let inputValue = this.state.inputValue;
 
 
     news = news.filter(function(e){
@@ -25,7 +28,6 @@ class Learn extends Component {
     });
     if(sorteredNews){
       var filterArr = [];
-      console.log(Object.keys(news).length);
       for(var i = Object.keys(news).length;i--;){
         filterArr.push(news[i]);
       }
@@ -34,11 +36,7 @@ class Learn extends Component {
         if (a.title < b.title) return -1;
         return 0;
       });
-
-
-      console.log(filterArr);
     }
-
 
       return (
           <div className={s.root}>
@@ -49,13 +47,13 @@ class Learn extends Component {
                     <div style={{cursor: "pointer"}} onClick={e => {e.preventDefault(); this.setState({sorteredNews : true})}}>{this.state.sorteredNews ? <span>Сортируется по алфавиту</span> : <span>Сортировать по алфавиту</span>}</div>
                     <div style={{cursor: "pointer"}} onClick={e => {e.preventDefault(); this.setState({sorteredNews : false})}}>Не сортировать по алфавиту</div>
                   </div>
-                  <h1 className={s.title}>Здравствуйте, {name}, почитайте наши новости:</h1>
+                  <h1 className={s.title}>Здравствуйте, {userName}, почитайте наши новости:</h1>
                   <div>
                     Вы ввели: {inputValue}
                   </div>
                   {news.length > 0 ?
                     news.map(function(item, key) {
-                          return <Article news={item} key={key} />
+                          return <Article news={item} key={key} user={userName} year={year} getPhotos={getPhotos} fetching={fetching} />
                       }
                   ) : <div className={s.nope}>новостей нету</div>}
                   {news.length > 0 ? <div className={s.all_news} onClick={e => {e.preventDefault(); this.setState({counter : ++this.state.counter})}}>Всего новостей: {news.length}</div> : ''}
@@ -74,11 +72,18 @@ class Learn extends Component {
     }
 }
 
-export default withStyles(s)(Learn);
+function mapStateToProps (state) {
+  return {
+    user: state.user,
+    page: state.page
+  }
+}
+
+export default withStyles(s)(connect(mapStateToProps, {getPhotos})(Learn));
 
 
 
-
+/*
 var Person = {
   constructor: function(name, age, gender){
     this.name = name;
@@ -175,3 +180,4 @@ console.log(counter2());
 console.log(counter2());
 console.log(counter2());
 console.log(counter2());
+*/
