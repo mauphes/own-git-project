@@ -4,8 +4,9 @@ import s from './Learn.scss';
 import Article from '../../components/Article';
 import Input from '../../components/Input';
 import Add from '../../components/Add';
+import Photos from '../../components/Photos';
 import { connect } from 'react-redux';
-import {getPhotos} from '../../actions/PageActions';
+import {getPhotos, addNew} from '../../actions/PageActions';
 import {handleLogin} from '../../actions/UserActions';
 
 class Learn extends Component {
@@ -16,18 +17,18 @@ class Learn extends Component {
   }
 
   render() {
-      let {news, year, fetching} = this.props.page;
+      let {news, year, fetching, photos} = this.props.page;
       const {userName, name, error} = this.props.user;
-      const {getPhotos} = this.props;
-      const {handleLogin} = this.props;
+      const {getPhotos, addNew, handleLogin} = this.props;
 
       let sorteredNews = this.state.sorteredNews;
       let inputValue = this.state.inputValue;
 
-
-    news = news.filter(function(e){
-      return e.text.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1;
-    });
+    if(news.length > 0){
+      news = news.filter(function(e){
+        return e.text.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1;
+      });
+    }
     if(sorteredNews){
       var filterArr = [];
       for(var i = Object.keys(news).length;i--;){
@@ -43,7 +44,7 @@ class Learn extends Component {
       return (
           <div className={s.root}>
               <div className={s.container}>
-                  <Add />
+                  <Add addNew={addNew} userName={userName} />
                   <Input filterFunc={::this.filterFunc} />
                   <div>
                     <div style={{cursor: "pointer"}} onClick={e => {e.preventDefault(); this.setState({sorteredNews : true})}}>{this.state.sorteredNews ? <span>Сортируется по алфавиту</span> : <span>Сортировать по алфавиту</span>}</div>
@@ -55,7 +56,7 @@ class Learn extends Component {
                   </div>
                   {news.length > 0 ?
                     news.map(function(item, key) {
-                          return <Article news={item} key={key} user={userName} year={year} getPhotos={getPhotos} fetching={fetching} />
+                          return <Article news={item} key={key} />
                       }
                   ) : <div className={s.nope}>новостей нету</div>}
                   {news.length > 0 ? <div className={s.all_news} onClick={e => {e.preventDefault(); this.setState({counter : ++this.state.counter})}}>Всего новостей: {news.length}</div> : ''}
@@ -66,7 +67,8 @@ class Learn extends Component {
                     <h2>Здравствуйте, {name}</h2> :
                     <button className='btn' onClick={handleLogin}>Войти</button>
                   }
-
+                  <hr/>
+                  <Photos year={year} getPhotos={getPhotos} fetching={fetching} photos={photos} error={error} />
               </div>
           </div>
       );
@@ -88,7 +90,7 @@ function mapStateToProps (state) {
   }
 }
 
-export default withStyles(s)(connect(mapStateToProps, {getPhotos, handleLogin})(Learn));
+export default withStyles(s)(connect(mapStateToProps, {getPhotos, addNew, handleLogin})(Learn));
 
 
 
