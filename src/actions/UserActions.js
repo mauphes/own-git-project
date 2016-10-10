@@ -28,3 +28,30 @@ export function handleLogin() {
   }
 
 }
+export function handleLoginFB() {
+
+  return function(dispatch) {
+
+    dispatch({
+      type: LOGIN_REQUEST
+    })
+
+    FB.login(function(response){
+      if(response){
+        FB.api(
+          response.authResponse.userID,
+          function (response) {
+            if (response && !response.error) {
+              let username = response.name
+              dispatch({
+                type: LOGIN_SUCCES,
+                payload: username
+              })
+            }
+          }
+        );
+      }
+    });
+  }
+
+}

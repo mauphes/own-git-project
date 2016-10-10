@@ -26,23 +26,38 @@ function Html({ title, description, style, script, children }) {
         {analytics.google.trackingId &&
           <script src="https://www.google-analytics.com/analytics.js" async defer />
         }
-        {
-          <script dangerouslySetInnerHTML={{ __html:
-            `window.vkAsyncInit = function() {
-              VK.init({
-                apiId: 5660550
-              });
-            };
+        <script dangerouslySetInnerHTML={{ __html:
+          `window.vkAsyncInit = function() {
+            VK.init({
+              apiId: 5662612
+            });
+          };
 
-            setTimeout(function() {
-              var el = document.createElement("script");
-              el.type = "text/javascript";
-              el.src = "//vk.com/js/api/openapi.js";
-              el.async = true;
-              document.getElementById("vk_api_transport").appendChild(el);
-            }, 0);` }}>
-          </script>
-        }
+          setTimeout(function() {
+            var el = document.createElement("script");
+            el.type = "text/javascript";
+            el.src = "//vk.com/js/api/openapi.js";
+            el.async = true;
+            document.getElementById("vk_api_transport").appendChild(el);
+          }, 0);` }}>
+        </script>
+        <script dangerouslySetInnerHTML={{ __html:
+          `(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '1122759027772148',
+              cookie     : true,
+              xfbml      : true,
+              version    : 'v2.8'
+            });
+          };` }}>
+        </script>
       </body>
     </html>
   );

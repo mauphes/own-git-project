@@ -71,11 +71,6 @@ export function getPhotos() {
 
 export function addNew(itemNew) {
   return function(dispatch){
-    /*dispatch({
-      type: ADD_NEW_REQUEST,
-      payload: itemNew
-    })*/
-    //news = news.concat(itemNew)
     dispatch({
       type: ADD_NEW_SUCCESS,
       payload: itemNew

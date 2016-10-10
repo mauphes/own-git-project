@@ -7,7 +7,7 @@ import Add from '../../components/Add';
 import Photos from '../../components/Photos';
 import { connect } from 'react-redux';
 import {getPhotos, addNew} from '../../actions/PageActions';
-import {handleLogin} from '../../actions/UserActions';
+import {handleLogin, handleLoginFB} from '../../actions/UserActions';
 
 class Learn extends Component {
 
@@ -19,7 +19,7 @@ class Learn extends Component {
   render() {
       let {news, year, fetching, photos} = this.props.page;
       const {userName, name, error} = this.props.user;
-      const {getPhotos, addNew, handleLogin} = this.props;
+      const {getPhotos, addNew, handleLogin, handleLoginFB} = this.props;
 
       let sorteredNews = this.state.sorteredNews;
       let inputValue = this.state.inputValue;
@@ -65,7 +65,12 @@ class Learn extends Component {
                   <hr />
                   {name ?
                     <h2>Здравствуйте, {name}</h2> :
-                    <button className='btn' onClick={handleLogin}>Войти</button>
+                    (
+                      <div>
+                        <button className={s.btn} onClick={handleLogin}>Войти</button>
+                        <button className={s.btn} onClick={handleLoginFB}>Войти</button>
+                      </div>
+                    )
                   }
                   <hr/>
                   <Photos year={year} getPhotos={getPhotos} fetching={fetching} photos={photos} error={error} />
@@ -90,7 +95,7 @@ function mapStateToProps (state) {
   }
 }
 
-export default withStyles(s)(connect(mapStateToProps, {getPhotos, addNew, handleLogin})(Learn));
+export default withStyles(s)(connect(mapStateToProps, {getPhotos, addNew, handleLogin, handleLoginFB})(Learn));
 
 
 
