@@ -14,7 +14,7 @@ class Add extends Component {
       let {userName} = this.props;
       return (
         <form className={s.add}>
-          <input type="text" className={s.add__author} defaultValue={userName} placeholder="Ваше имя" ref="author" />
+          <input type="text" className={s.add__author} value={userName} placeholder="Ваше имя" ref="author" />
           <input type="text" className={s.add__author} defaultValue="" placeholder="Введите заголовок" ref="title"/>
           <textarea className={s.add__text} defaultValue="" placeholder="Текст новости" ref="message" />
           <label className={s.add__checkrule}>

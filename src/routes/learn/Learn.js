@@ -7,7 +7,7 @@ import Add from '../../components/Add';
 import Photos from '../../components/Photos';
 import { connect } from 'react-redux';
 import {getPhotos, addNew} from '../../actions/PageActions';
-import {handleLogin, handleLoginFB} from '../../actions/UserActions';
+import {handleLogin, handleLoginFB, logout} from '../../actions/UserActions';
 
 class Learn extends Component {
 
@@ -18,8 +18,8 @@ class Learn extends Component {
 
   render() {
       let {news, year, fetching, photos} = this.props.page;
-      const {userName, name, error} = this.props.user;
-      const {getPhotos, addNew, handleLogin, handleLoginFB} = this.props;
+      const {userName, error, auth} = this.props.user;
+      const {getPhotos, addNew, handleLogin, handleLoginFB, logout} = this.props;
 
       let sorteredNews = this.state.sorteredNews;
       let inputValue = this.state.inputValue;
@@ -50,7 +50,7 @@ class Learn extends Component {
                     <div style={{cursor: "pointer"}} onClick={e => {e.preventDefault(); this.setState({sorteredNews : true})}}>{this.state.sorteredNews ? <span>Сортируется по алфавиту</span> : <span>Сортировать по алфавиту</span>}</div>
                     <div style={{cursor: "pointer"}} onClick={e => {e.preventDefault(); this.setState({sorteredNews : false})}}>Не сортировать по алфавиту</div>
                   </div>
-                  <h1 className={s.title}>Здравствуйте, {userName}, почитайте наши новости:</h1>
+                  <h1 className={s.title}>Здравствуйте{userName ? `, ${userName}` : ''}, почитайте наши новости:</h1>
                   <div>
                     Вы ввели: {inputValue}
                   </div>
@@ -63,9 +63,13 @@ class Learn extends Component {
                   <div>Всего кликов: {this.state.counter}</div>
 
                   <hr />
-                  {name ?
-                    <h2>Здравствуйте, {name}</h2> :
+                  {auth ?
                     (
+                      <div>
+                        <h2>Здравствуйте, {userName}</h2>
+                        <button className={s.btn} onClick={logout}>Выйти</button>
+                      </div>
+                    ) : (
                       <div>
                         <button className={s.btn} onClick={handleLogin}>Войти</button>
                         <button className={s.btn} onClick={handleLoginFB}>Войти</button>
@@ -95,7 +99,7 @@ function mapStateToProps (state) {
   }
 }
 
-export default withStyles(s)(connect(mapStateToProps, {getPhotos, addNew, handleLogin, handleLoginFB})(Learn));
+export default withStyles(s)(connect(mapStateToProps, {getPhotos, addNew, handleLogin, handleLoginFB, logout})(Learn));
 
 
 
