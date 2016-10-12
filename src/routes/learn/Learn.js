@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Learn.scss';
 import Article from '../../components/Article';
@@ -84,6 +84,7 @@ class Learn extends Component {
   }
     constructor(props,context) {
         super(props,context);
+        context.setTitle("Страничка самообразования React+Redux");
         this.state = {
             counter: 0,
             inputValue: "",
@@ -98,6 +99,8 @@ function mapStateToProps (state) {
     page: state.page
   }
 }
+
+Learn.contextTypes = { setTitle: PropTypes.func.isRequired };
 
 export default withStyles(s)(connect(mapStateToProps, {getPhotos, addNew, handleLogin, handleLoginFB, logout})(Learn));
 

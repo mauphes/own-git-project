@@ -48,7 +48,6 @@ export function handleLoginFB() {
     });
   }
 }
-
 export function logout(){
   return function(dispatch){
     dispatch({
