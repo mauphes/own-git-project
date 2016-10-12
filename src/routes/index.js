@@ -28,7 +28,6 @@ export default {
 
   async action({ next, render, context }) {
     const component = await next();
-    console.log(context);
     if (component === undefined) return component;
     return render(
       <Provider store={store}>
